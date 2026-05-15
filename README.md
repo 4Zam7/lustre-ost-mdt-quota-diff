@@ -109,6 +109,41 @@ Trois scripts sont disponibles selon l'unité souhaitée :
 
 ---
 
+## Exemple de sortie
+
+```
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║   COMPARAISON QUOTA LFS  —  avant vs après force_reint  (valeurs en Go)                                      ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ Filesystem                   │  Go utilise │ limit av. (Go) │ limit ap. (Go) │  Δ limit (Go) ║
+╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+║ fsdata-MDT0000_UUID          │        0.10 │           0.10 │           4.10 │         +4.00 ║
+║ fsdata-MDT0001_UUID          │        0.10 │           0.10 │           4.10 │         +4.00 ║
+║ fsdata-MDT0002_UUID          │        0.00 │           0.00 │           0.00 │             = ║
+║ fsdata-OST0000_UUID          │        0.37 │           0.37 │           4.37 │         +4.00 ║
+║ fsdata-OST0001_UUID          │        0.36 │           0.36 │           4.36 │         +4.00 ║
+║ fsdata-OST0008_UUID          │       73.87 │          73.87 │          73.87 │  = (sature)   ║
+║ fsdata-OST0009_UUID          │       72.28 │          72.28 │          72.28 │  = (sature)   ║
+║ fsdata-OST0012_UUID          │       70.73 │          70.73 │          71.73 │         +1.00 ║
+║ fsdata-OST0013_UUID          │       75.61 │         302.95 │          79.61 │       -223.34 ║
+║ fsdata-OST004e_UUID          │       75.20 │          75.20 │          75.20 │  = (sature)   ║
+║ fsdata-OST004f_UUID          │       48.05 │         275.40 │          49.05 │       -226.34 ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+Resume :
+  Entrees avec limit modifiee  : 77
+  Entrees inchangees           : 7
+  (sature) OSTs/MDTs satures (utilise >= limit) : 5
+
+  Total allocated block limit avant : 2047.91 Go
+  Total allocated block limit apres : 1411.45 Go
+  Delta total                       : -636.45 Go
+```
+
+> Le tableau est affiché en couleur dans le terminal : vert pour les hausses de limite, rouge pour les baisses, blanc pour les valeurs inchangées.
+
+---
+
 ## Lecture du tableau de sortie
 
 ```
